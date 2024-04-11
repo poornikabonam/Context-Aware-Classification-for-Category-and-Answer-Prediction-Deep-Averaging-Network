@@ -34,7 +34,7 @@ def class_labels(data):
                i+=1
     return class_to_i, i_to_class
 
-# You don't need to change this funtion
+
 
 
 def load_glove_vectors(glove_file):
