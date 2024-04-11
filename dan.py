@@ -1,4 +1,4 @@
-#NAME : POORNIKA BONAM
+
 
 import argparse
 import torch
@@ -14,7 +14,7 @@ import nltk
 kUNK = '<unk>'
 kPAD = '<pad>'
 
-# You don't need to change this funtion
+
 def class_labels(data):
     class_to_i = {}
     i_to_class = {}
@@ -26,7 +26,7 @@ def class_labels(data):
             i+=1
     return class_to_i, i_to_class
 
-# You don't need to change this funtion
+
 def load_data(filename, lim):
     """
     load the json file into data list
@@ -46,7 +46,7 @@ def load_data(filename, lim):
     #print(data)
     return data
 
-# You don't need to change this funtion
+
 def load_words(exs):
     """
     vocabuary building
@@ -92,7 +92,7 @@ class QuestionDataset(Dataset):
     Pytorch data class for questions
     """
 
-    ###You don't need to change this funtion
+    
     def __init__(self, examples, word2ind, num_classes, class2ind=None):
         self.questions = []
         self.labels = []
@@ -111,12 +111,12 @@ class QuestionDataset(Dataset):
                     self.labels[i] = num_classes
         self.word2ind = word2ind
     
-    ###You don't need to change this funtion
+ 
     def __getitem__(self, index):
         return self.vectorize(self.questions[index], self.word2ind), \
           self.labels[index]
     
-    ###You don't need to change this funtion
+    
     def __len__(self):
         return len(self.questions)
 
@@ -134,10 +134,9 @@ class QuestionDataset(Dataset):
 
         vec_text = [0] * len(ex)
 
-        #### modify the code to vectorize the question text
-        #### You should consider the out of vocab(OOV) cases
-        #### question_text is already tokenized    
-        ####Your code here
+        #### considering the out of vocab(OOV) cases
+         
+        
         
         for i in range(0,len(ex)):
           if ex[i] in word2ind.keys():    
@@ -149,7 +148,7 @@ class QuestionDataset(Dataset):
         return vec_text
 
 
-###You don't need to change this funtion
+
 
 def batchify(batch):
     """
@@ -225,7 +224,7 @@ def train(args, model, train_data_loader, dev_data_loader, accuracy, device):
     epoch_loss_total = 0
     start = time.time()
 
-    #### modify the following code to complete the training funtion
+
 
     for idx, batch in enumerate(train_data_loader):
         question_text = batch['text'].to(device)
@@ -274,8 +273,7 @@ class DanModel(nn.Module):
     architecture, saving, updating examples, and predicting examples.
     """
 
-    #### You don't need to change the parameters for the model for passing tests, might need to tinker to improve performance/handle
-    #### pretrained word embeddings/for your project code.
+   
 
 
     def __init__(self, n_classes, vocab_size, weights_matrix=None,emb_dim=50,
@@ -295,14 +293,14 @@ class DanModel(nn.Module):
 
         # Create the actual prediction framework for the DAN classifier.
 
-        # You'll need combine the two linear layers together, probably
+        # combine the two linear layers together, probably
         # with the Sequential function.  The first linear layer takes
         # word embeddings into the representation space, and the
         # second linear layer makes the final prediction.  Other
         # layers / functions to consider are Dropout, ReLU. 
         # For test cases, the network we consider is - linear1 -> ReLU() -> Dropout(0.5) -> linear2
 
-        #### Your code here
+        
         self.layers = nn.Sequential(
                   self.linear1,
                   nn.ReLU(),
